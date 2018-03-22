@@ -13,6 +13,7 @@ class Tree
     @leaf_count = 0
   end
 
+  #Insert a new node by first checking to see if the root node has been established yet.
   def insert(score, name)
     new_node = Node.new(score, name)
     if @root_node.score == nil
@@ -22,6 +23,9 @@ class Tree
     end
   end
 
+  #Once the root node is checked and exists, increment the depth counter of the node and 
+  #then search through the tree for the correct placement. If the value of the score in 
+  #the node is less than the root, move left; if it's greater than the root, move right.
   def insert_new_node(new_node, original_node)
     new_node.depth += 1
     if new_node.score < original_node.score
@@ -33,7 +37,7 @@ class Tree
     end
   end
 
-
+#Start search by checking to make sure the root node exists.
   def start_search(score)
     if @root_node.nil?
       return nil
@@ -42,8 +46,9 @@ class Tree
     end
   end
 
+#After checking the root node, continue looking through the left and right children to find
+#the right score. Once found, return that node.
   def search_nodes(score, node)
-    # require 'pry'; binding.pry
     @node_depth += 1
     if node == nil
       return nil
@@ -56,6 +61,8 @@ class Tree
     end
   end
 
+#Check to see if the binary search tree contains a node with the given score by utilizing the
+#search method.
   def include?(score)
     if start_search(score) == nil
       return nil
@@ -64,6 +71,8 @@ class Tree
     end
   end
 
+  #Finding the depth of a node with the given score by utilizing the search method and calling
+  #the depth variable from the node. 
   def depth_of(score)
     node = start_search(score)
     if node == nil
@@ -73,6 +82,8 @@ class Tree
     end
   end
 
+  #Check and see which node is the minimum in the tree by finding the left most node on the tree.
+  #Utilizes recursion to check each node in order.
   def check_root_node_min
     node = @root_node
     if node.left.nil?
@@ -82,6 +93,7 @@ class Tree
     end
   end
 
+  #Continuation of the minimum score method. Needs to be combined in one method.
   def min_score(node)
     if node.left.nil?
       return node
@@ -90,6 +102,8 @@ class Tree
     end
   end
 
+  #Check and see which node is the maximum in the tree by finding the right most node on the tree.
+  #Utilizes recursion to check each node in order.
   def check_root_node_max
     node = @root_node
     if node.right.nil?
@@ -99,6 +113,7 @@ class Tree
     end
   end
 
+  #Continuation of the maximum score method. Needs to be combined in one method.
   def max_score(node)
     if node.right.nil?
       return node
@@ -107,6 +122,7 @@ class Tree
     end
   end
 
+  #
   def sort
     if @root_node == nil
       return nil
@@ -166,44 +182,43 @@ class Tree
       end
   end
 
-    def return_leaves
-      leaves
-      p @leaf_count
-    end
+  def return_leaves
+    leaves
+    p @leaf_count
+  end
 
-    def height
-      sorted_array_of_movies = sort
-      highest = sorted_array_of_movies.max_by { |node| node[:depth] }
-      p highest[:depth]
-    end
+  def height
+    sorted_array_of_movies = sort
+    highest = sorted_array_of_movies.max_by { |node| node[:depth] }
+    p highest[:depth]
+  end
 
-    def delete(score)
-      node_delete = start_search(score)
-      delete_node(node_delete)
-    end
+  def delete(score)
+    node_delete = start_search(score)
+    delete_node(node_delete)
+  end
 
-    def delete_node(node)
-      node_to_delete = node
-      if node_to_delete.left.nil? && node_to_delete.right.nil?
-        node_to_delete = nil
-      elsif node_to_delete.left != nil && node_to_delete.right == nil
-        node_to_delete = node_to_delete.left
-      elsif node_to_delete.left == nil && node_to_delete.right != nil
-        node_to_delete = node_to_delete.right
-      else
-        temp_node = min_score(node_to_delete.right)
-        node_to_delete.score = temp_node.score
-        node_to_delete.name = temp_node.name
-        node_to_delete.right = change(node_to_delete.right)
-      end
+  def delete_node(node)
+    node_to_delete = node
+    if node_to_delete.left.nil? && node_to_delete.right.nil?
+      node_to_delete = nil
+    elsif node_to_delete.left != nil && node_to_delete.right == nil
+      node_to_delete = node_to_delete.left
+    elsif node_to_delete.left == nil && node_to_delete.right != nil
+      node_to_delete = node_to_delete.right
+    else
+      temp_node = min_score(node_to_delete.right)
+      node_to_delete.score = temp_node.score
+      node_to_delete.name = temp_node.name
+      node_to_delete.right = change(node_to_delete.right)
     end
+  end
 
-    def change(node)
-      unless node.left.nil?
-        change(node.left)
-      end
-      node.right
+  def change(node)
+    unless node.left.nil?
+      change(node.left)
     end
-
+    node.right
+  end
 end
 
