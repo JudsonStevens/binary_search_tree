@@ -182,10 +182,8 @@ class Tree
       delete_node(node_delete)
     end
 
-
     def delete_node(node)
       node_to_delete = node
-      require 'pry'; binding.pry
       if node_to_delete.left.nil? && node_to_delete.right.nil?
         node_to_delete = nil
       elsif node_to_delete.left != nil && node_to_delete.right == nil
@@ -194,24 +192,18 @@ class Tree
         node_to_delete = node_to_delete.right
       else
         temp_node = min_score(node_to_delete.right)
-        node_to_delete = nil
-        require 'pry'; binding.pry
-        insert(temp_node.score, temp_node.name )
-        delete_node(temp_node)
-        print sort
-        require 'pry'; binding.pry
+        node_to_delete.score = temp_node.score
+        node_to_delete.name = temp_node.name
+        node_to_delete.right = change(node_to_delete.right)
       end
     end
+
+    def change(node)
+      unless node.left.nil?
+        change(node.left)
+      end
+      node.right
+    end
+
 end
 
-# x = Tree.new
-# x.load_values
-# print x.sort
-# # x.health(2)
-# x.return_leaves
-# x.height
-# x.delete(55)
-# p x.sort
-
-# x.start_search(62)
-# x.include?(55)
