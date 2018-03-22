@@ -42,13 +42,13 @@ insert
 The insert method adds a new node with the passed-in data. Each node is comprised of a score and a movie title. It returns the depth of the new node in the tree.
 
 tree.insert(61, "Bill & Ted's Excellent Adventure")
-# => 0
+=> 0
 tree.insert(16, "Johnny English")
-# => 1
+=> 1
 tree.insert(92, "Sharknado 3")
-# => 1
+=> 1
 tree.insert(50, "Hannibal Buress: Animal Furnace")
-# => 2
+=> 2
 
 For all the later methods defined here, assume that we’ve run these four inserts.
 include?
@@ -56,48 +56,48 @@ include?
 Verify/reject the presence of a score in the tree:
 
 tree.include?(16)
-# => true
+=> true
 tree.include?(72)
-# => false
+=> false
 
 depth_of
 
 Reports the depth of the tree where a score appears. Return nil if the score does not exist:
 
 tree.depth_of(92)
-# => 1
+=> 1
 tree.depth_of(50)
-# => 2
+=> 2
 
 max
 
 Which movie has the highest score in the list? What is it’s score?
 
 tree.max
-# => {"Sharknado 3"=>92}
+=> {"Sharknado 3"=>92}
 
 min
 
 Which movie has the lowest score in the list? What is it’s score?
 
 tree.min
-# => {"Johnny English"=>16}
+=> {"Johnny English"=>16}
 
 sort
 
 Return an array of all the movies and scores in sorted ascending order. Return them as an array of hashes. Note: you’re not using Ruby’s Array#sort. You’re traversing the tree.
 
 tree.sort
-# => [{"Johnny English"=>16},
-#   {"Hannibal Buress: Animal Furnace"=>50},
-#   {"Bill & Ted's Excellent Adventure"=>61},
-#  {"Sharknado 3"=>92}]
+=> [{"Johnny English"=>16},
+  {"Hannibal Buress: Animal Furnace"=>50},
+  {"Bill & Ted's Excellent Adventure"=>61},
+ {"Sharknado 3"=>92}]
 
 load
 
 Assuming we have a file named movies.txt with one score/movie pair per line:
 
-# movies.txt sample format:
+movies.txt sample format:
 34, Hannibal Buress: Comedy Camisado
 63, Meet My Valentine
 22, Experimenter
@@ -106,7 +106,7 @@ Assuming we have a file named movies.txt with one score/movie pair per line:
 10, I Love You Phillip Morris
 
 tree.load('movies.txt')
-# => 99
+=> 99
 
 Where the return value is the number of movies inserted into the tree. If a score is already present in the tree when load is called, ignore it.
 
@@ -146,14 +146,14 @@ leaves
 A leaf is a node that has no left or right value. How many leaf nodes are on the tree?
 
 tree.leaves
-# => 2
+=> 2
 
 height
 
 What is the height (aka the maximum depth) of the tree?
 
 tree.height
-# => 3
+=> 3
 
 Extension
 Deleting Nodes
@@ -161,9 +161,9 @@ Deleting Nodes
 Remove a specified piece score from the tree:
 
 tree.delete(30)
-# => 30
+=> 30
 tree.delete(101)
-# => nil
+=> nil
 
 Note that any children of the deleted node should still be present in the tree.
 Evaluation Rubric
@@ -203,8 +203,6 @@ Expectations:
     Test coverage exceeds 95%
 
 4. Version Control
-
-Expectations:
 
     Developer commits at a pace of at least 1 commit per hour
     Developer implements branching and PRs
